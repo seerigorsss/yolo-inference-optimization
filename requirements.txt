@@ -1,0 +1,9 @@
+# PyTorch ставится ОТДЕЛЬНО до этого файла (команда зависит от железа — см. README, шаг 2).
+# Проверено: Python 3.13, torch 2.15, ultralytics 8.4.216, onnxruntime 1.32, opencv-python 5.1, openvino 2026.4.
+
+ultralytics==8.4.216      # в 8.4 параметр quantize=8/16 заменил half=/int8= — скрипты рассчитаны на эту версию
+onnx>=1.17
+onnxslim>=0.1.50
+onnxruntime>=1.20         # NVIDIA: вместо него onnxruntime-gpu; AMD на Windows: onnxruntime-directml
+opencv-python>=4.10
+numpy
