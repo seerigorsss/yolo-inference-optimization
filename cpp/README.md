@@ -1,5 +1,8 @@
 # Часть на C++ (дополнительные баллы)
 
+Проще всего — ноутбук [`lab1_cpp.ipynb`](../lab1_cpp.ipynb) в корне репозитория: он собирает программу,
+запускает её на всех моделях и сравнивает с Python. Ниже — то же вручную из терминала.
+
 `main.cpp` — распознавание объектов в видео на C++: чтение кадров, letterbox, инференс YOLO (ONNX),
 разбор выхода сети, NMS, отрисовка, запись видео и замер времени по этапам (как в разделе 2 ноутбука —
 удобно сравнить Python и C++).
@@ -26,7 +29,7 @@ yolo export model=models/yolo26n.pt format=onnx      # скачает веса �
 | `yolo26n.onnx` | раздел 4 или команда выше | любой бэкенд |
 | `yolo26n_fp16.onnx` | раздел 4 | `--backend ort` (для `--device trt` — FP16-движок) |
 | `yolo26n_int8.onnx` | раздел 4 | `--backend ort` (CPU, TensorRT) |
-| `yolo26n_compressed_1280x720_to_320.onnx` | раздел 3 | `--backend ort`, видео того же разрешения |
+| `yolo26n_compressed_interpolate_1280x720_to_320.onnx`, `yolo26n_compressed_conv_1280x720_to_320.onnx` | раздел 3 (сжатие кадра внутри модели: F.interpolate / слой свёртки) | `--backend ort`, видео того же разрешения |
 
 Тестовое видео `data/demo.mp4` тоже создаёт ноутбук (раздел 2); подойдёт любое своё.
 
@@ -68,7 +71,7 @@ cmake --build build --config Release
 ./build/yolo_video ../models/yolo26n.onnx ../data/demo.mp4 --device cuda-fp16      # OpenCV 4.x + CUDA
 ./build/yolo_video ../models/yolo26n.onnx ../data/demo.mp4 --backend ort           # ONNX Runtime, CPU
 ./build/yolo_video ../models/yolo26n_int8.onnx ../data/demo.mp4 --backend ort      # INT8 из раздела 4
-./build/yolo_video ../models/yolo26n_compressed_1280x720_to_320.onnx ../data/demo.mp4 --backend ort  # раздел 3
+./build/yolo_video ../models/yolo26n_compressed_conv_1280x720_to_320.onnx ../data/demo.mp4 --backend ort  # раздел 3
 ./build/yolo_video ../models/yolo26n_fp16.onnx ../data/demo.mp4 --backend ort --device trt           # TensorRT
 ./build/yolo_video ../models/yolo26n.onnx 0 --show                                  # веб-камера, окно (q — выход)
 ```
