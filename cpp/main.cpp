@@ -6,7 +6,7 @@
 //                        в OpenCV 5.x новый DNN-движок пока только CPU).
 //   --backend ort     : ONNX Runtime (если собрано с -DWITH_ORT=ON).
 //                       --device cpu | cuda | trt (TensorRT EP) | coreml | openvino
-//                       Понимает и INT8-модель из шага 4, и модель «со сжатием внутри» из шага 3
+//                       Понимает и INT8-модель (раздел 4 ноутбука), и модель «со сжатием внутри» (раздел 3)
 //                       (вход uint8 [1,H,W,3] — кадр передаётся как есть, без препроцессинга).
 //
 // Пример:
@@ -243,7 +243,7 @@ class OrtBackend : public Backend {
     Ort::Session session{nullptr};
     std::string in_name, out_name;
     std::vector<int64_t> in_shape;
-    bool raw_frame = false;  // модель из шага 3: вход uint8 [1,H,W,3]
+    bool raw_frame = false;  // модель из раздела 3 ноутбука: вход uint8 [1,H,W,3]
     Ort::MemoryInfo mem = Ort::MemoryInfo::CreateCpu(OrtArenaAllocator, OrtMemTypeDefault);
 
 public:
@@ -299,7 +299,7 @@ public:
         if (!raw_frame) return make_blob(frame, imgsz, lb);
         if (frame.rows != in_shape[1] || frame.cols != in_shape[2])
             throw std::runtime_error("модель экспортирована для кадра " + std::to_string(in_shape[2]) + "x" +
-                                     std::to_string(in_shape[1]) + " — пересоздайте её шагом 3 для этого видео");
+                                     std::to_string(in_shape[1]) + " — пересоздайте её в разделе 3 ноутбука для этого видео");
         lb = Letterbox{};  // рамки уже в координатах кадра
         return frame.isContinuous() ? frame : frame.clone();
     }

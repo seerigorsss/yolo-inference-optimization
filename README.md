@@ -7,11 +7,13 @@
 | **Python** — `lab1_yolo.ipynb` | все пункты задания: YOLO на изображениях, распознавание видео, сжатие кадра внутри модели, квантование, сравнение ONNX Runtime / TensorRT / OpenCV DNN / OpenVINO / CoreML | один ноутбук, **Run All** |
 | **C++** — `cpp/` | то же распознавание видео на C++ (OpenCV DNN и ONNX Runtime: CPU / CUDA / TensorRT / CoreML) | отдельно, см. [`cpp/README.md`](cpp/README.md) |
 | Теория — `THEORY.md` | анализ и сравнение способов оптимизации, результаты замеров, выводы | читать |
+| **Отчёт — [`report_lab1.pdf`](report_lab1.pdf)** | отчёт по лабораторной работе (титул, реферат, разделы, выводы, листинги) | читать |
 
 ```
 ├── lab1_yolo.ipynb      Python-часть целиком
 ├── requirements.txt     пакеты для ноутбука
 ├── THEORY.md            теоретическая часть
+├── report_lab1.pdf      отчёт по лабораторной работе
 ├── cpp/                 C++-часть: main.cpp, CMakeLists.txt, README.md
 └── models/ data/ runs/  создаются ноутбуком: модели, тестовое видео, результаты
 ```
